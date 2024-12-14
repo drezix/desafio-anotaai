@@ -1,6 +1,6 @@
-package com.drezix.desafio.domain.product;
+package com.drezix.desafio.domains.products;
 
-import com.drezix.desafio.domain.category.Category;
+import com.drezix.desafio.domains.categories.Category;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
