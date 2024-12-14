@@ -1,6 +1,6 @@
-package com.drezix.desafio.repository;
+package com.drezix.desafio.repositories;
 
-import com.drezix.desafio.domain.category.Category;
+import com.drezix.desafio.domains.categories.Category;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
