@@ -3,7 +3,6 @@ package com.drezix.desafio.controllers;
 import com.drezix.desafio.domains.categories.Category;
 import com.drezix.desafio.domains.categories.CategoryDTO;
 import com.drezix.desafio.services.CategoryService;
-import jakarta.websocket.server.PathParam;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,13 +30,13 @@ public class CategoryController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Category> update(@PathParam("id") String id, @RequestBody CategoryDTO categoryData) {
+    public ResponseEntity<Category> update(@PathVariable("id") String id, @RequestBody CategoryDTO categoryData) {
         Category updatedCategory = this.service.update(id, categoryData);
         return ResponseEntity.ok(updatedCategory);
     }
 
-    @DeleteMapping
-    public ResponseEntity<Category> delete(@PathParam("id") String id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Category> delete(@PathVariable("id") String id) {
         this.service.delete(id);
         return ResponseEntity.noContent().build();
     }
