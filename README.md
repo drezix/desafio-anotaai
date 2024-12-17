@@ -14,7 +14,7 @@ O projeto tem como objetivo desenvolver uma aplicação conforme as especificaç
 
 ## 📋 Funcionalidades
 
-- **Gerenciamento de tarefas:** Permite criar, editar e excluir tarefas.
+- **Gerenciamento de tarefas:** Permite criar, editar e excluir produtos e categorias.
 - **Interface intuitiva:** Foco na simplicidade para atender às necessidades do usuário.
 - **Performance otimizada:** Aplicação desenvolvida com boas práticas de desenvolvimento.
 
