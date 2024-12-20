@@ -6,6 +6,8 @@ import com.drezix.desafio.domains.products.Product;
 import com.drezix.desafio.domains.products.ProductDTO;
 import com.drezix.desafio.domains.products.exceptions.ProductNotFoundException;
 import com.drezix.desafio.repositories.ProductRepository;
+import com.drezix.desafio.services.aws.AwsSnsService;
+import com.drezix.desafio.services.aws.MessageDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,13 +15,16 @@ import java.util.List;
 @Service
 public class ProductService {
 
-    private CategoryService categoryService;
+    private final CategoryService categoryService;
 
-    private ProductRepository repository;
+    private final ProductRepository repository;
 
-    public ProductService(CategoryService categoryService, ProductRepository productRepository) {
+    private final AwsSnsService snsService;
+
+    public ProductService(CategoryService categoryService, ProductRepository productRepository, AwsSnsService snsService) {
         this.categoryService = categoryService;
         this.repository = productRepository;
+        this.snsService = snsService;
     }
 
     public Product insert(ProductDTO productData) {
@@ -27,7 +32,11 @@ public class ProductService {
                 .orElseThrow(CategoryNotFoundException::new);
         Product newProduct = new Product(productData);
         newProduct.setCategory(category);
+
         this.repository.save(newProduct);
+
+        this.snsService.publish(new MessageDTO(newProduct.getOwnerId()));
+
         return newProduct;
     }
 
@@ -44,6 +53,8 @@ public class ProductService {
         if(!(productData.price() == null)) product.setPrice(productData.price());
 
         this.repository.save(product);
+
+        this.snsService.publish(new MessageDTO(product.getOwnerId()));
 
         return product;
     }
